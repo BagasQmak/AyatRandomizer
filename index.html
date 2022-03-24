@@ -1,0 +1,53 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayat Randomizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900">
+    <div class="container mx-auto p-4 mt-40 text-slate-50 text-center">
+       
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $.ajax({
+            url: 'https://api.banghasan.com/quran/format/json/acak',
+            type: 'GET',
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                if (result.status == "ok") {
+                    $('.container').append(`
+                    <div class="kolom-ayat">
+                        <h2 class="text-xl font-semibold leading-none">`+ result.surat.nama +`</h2>
+                        <h3 class="text-md font-thin mb-5">`+ result.surat.arti +`</h3>
+                        <h1 class="font-bold text-4xl leading-relaxed pb-4">`+ result.acak.ar.teks +`</h1>
+                        <p class="mb-2 font-mono">Ayat : `+ result.surat.ayat +`</p>
+                        <p class="text-lg italic">"`+ result.acak.id.teks +`"</p>
+                    </div>
+                    <a href="#" value="Reload" onClick="document.location.reload(true)">
+                    <div class="tombol-refresh cursor-pointer p-3 w-32 mx-auto rounded-lg my-5 shadow-md  bg-yellow-600 hover:bg-yellow-700 ">
+                            Refresh
+                        </div>
+                    </a>
+                    `);
+                } else {
+                    $('.container').hmtl('<h1 class="text-center">Ayat tidak ditemukan</h1>')
+                }
+            }
+        });
+
+function reloadpage()
+{
+location.reload()
+}
+</script>
+</body>
+</html>
